@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - Alumni Career Accelerator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='job_board.css') }}"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Alumni Career Accelerator</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="{{ url_for('index') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('networking') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Networking</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('job_board') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Job Board</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('mentorship') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Mentorship</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('dashboard') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('login') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('register') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Register</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container mx-auto mt-4">
+      {% for category, message in messages %}
+      <div
+        class="p-3 mb-3 rounded-md {% if category == 'error' %} bg-red-100 text-red-700 {% elif category == 'success' %} bg-green-100 text-green-700 {% else %} bg-blue-100 text-blue-700 {% endif %}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-xl">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">
+        {{ title }}
+      </h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">
+        Discover exclusive job opportunities, many with direct alumni referrals,
+        giving you a competitive edge.
+      </p>
+
+      <div class="mb-8 job-board-search-card">
+        <h3 class="text-2xl font-semibold text-blue-700 mb-4">
+          Search Job Listings
+        </h3>
+        <form class="space-y-4">
+          <div>
+            <label
+              for="job-title"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Job Title / Keywords:</label
+            >
+            <input
+              type="text"
+              id="job-title"
+              placeholder="e.g., Data Scientist, Marketing Analyst"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label
+              for="location"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Location:</label
+            >
+            <input
+              type="text"
+              id="location"
+              placeholder="e.g., New York, Remote"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label
+              for="company"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Company:</label
+            >
+            <input
+              type="text"
+              id="company"
+              placeholder="e.g., Google, Microsoft"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+          >
+            Search Jobs
+          </button>
+        </form>
+      </div>
+
+      <div class="job-listings space-y-6">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+          Recent Job Openings
+        </h3>
+
+        {% for job in job_listings %}
+        <div class="job-card">
+          <h4 class="text-xl font-bold text-blue-700 mb-2">{{ job.title }}</h4>
+          <p class="text-gray-600 mb-1">
+            <strong>Company:</strong> {{ job.company }}
+          </p>
+          <p class="text-gray-600 mb-1">
+            <strong>Location:</strong> {{ job.location }}
+          </p>
+          <p class="text-gray-600 mb-2">
+            <strong>Referral Available:</strong> {{ 'Yes' if
+            job.referral_available else 'No' }}
+          </p>
+          <p class="text-gray-700 text-sm">{{ job.description }}</p>
+          <a href="#" class="cta-button-small mt-3">View Details & Apply</a>
+        </div>
+        {% else %}
+        <p class="text-gray-600">No job listings found.</p>
+        {% endfor %}
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+      <div class="container mx-auto">
+        <p>&copy; 2025 Alumni Career Accelerator. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

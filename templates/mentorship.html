@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - Alumni Career Accelerator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='mentorship.css') }}"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Alumni Career Accelerator</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="{{ url_for('index') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('networking') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Networking</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('job_board') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Job Board</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('mentorship') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Mentorship</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('dashboard') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('login') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('register') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Register</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container mx-auto mt-4">
+      {% for category, message in messages %}
+      <div
+        class="p-3 mb-3 rounded-md {% if category == 'error' %} bg-red-100 text-red-700 {% elif category == 'success' %} bg-green-100 text-green-700 {% else %} bg-blue-100 text-blue-700 {% endif %}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-xl">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">
+        {{ title }}
+      </h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">
+        Find experienced alumni mentors who can guide you through your career
+        journey, offer advice, and share insights.
+      </p>
+
+      <div class="mb-8 mentorship-search-card">
+        <h3 class="text-2xl font-semibold text-purple-700 mb-4">
+          Find Your Mentor
+        </h3>
+        <form class="space-y-4">
+          <div>
+            <label
+              for="mentor-industry"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Industry:</label
+            >
+            <input
+              type="text"
+              id="mentor-industry"
+              placeholder="e.g., Tech, Finance, Healthcare"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label
+              for="mentor-expertise"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Area of Expertise:</label
+            >
+            <input
+              type="text"
+              id="mentor-expertise"
+              placeholder="e.g., Software Development, Marketing, Leadership"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label
+              for="mentor-availability"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Availability:</label
+            >
+            <select
+              id="mentor-availability"
+              class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Any</option>
+              <option value="weekly">Weekly</option>
+              <option value="bi-weekly">Bi-weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+          >
+            Search Mentors
+          </button>
+        </form>
+      </div>
+
+      <div class="mentor-listings space-y-6">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+          Available Mentors
+        </h3>
+
+        {% for mentor in mentors %}
+        <div class="mentor-card">
+          <div class="flex items-center space-x-4 mb-3">
+            <img
+              src="https://placehold.co/80x80/D8BFD8/000000?text={{ mentor.username[0]|upper }}"
+              alt="Mentor Profile"
+              class="rounded-full w-20 h-20 object-cover"
+            />
+            <div>
+              <h4 class="text-xl font-bold text-purple-700">
+                {{ mentor.username }}
+              </h4>
+              <p class="text-gray-600">{{ mentor.email }}</p>
+              <p class="text-gray-600 text-sm">
+                Expertise: Placeholder, Placeholder, Placeholder
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-700 text-sm mb-3">
+            "Passionate about guiding the next generation. Happy to share
+            insights."
+          </p>
+          <a
+            href="#"
+            class="cta-button-small mt-3 bg-purple-600 hover:bg-purple-800"
+            >Request Mentorship</a
+          >
+        </div>
+        {% else %}
+        <p class="text-gray-600">
+          No mentors found. Register some alumni to be mentors!
+        </p>
+        {% endfor %}
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+      <div class="container mx-auto">
+        <p>&copy; 2025 Alumni Career Accelerator. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - Alumni Career Accelerator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='networking.css') }}"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Alumni Career Accelerator</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="{{ url_for('index') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('networking') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Networking</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('job_board') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Job Board</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('mentorship') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Mentorship</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('dashboard') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('login') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('register') }}"
+                class="hover:text-blue-200 transition duration-300"
+                >Register</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="container mx-auto mt-4">
+      {% for category, message in messages %}
+      <div
+        class="p-3 mb-3 rounded-md {% if category == 'error' %} bg-red-100 text-red-700 {% elif category == 'success' %} bg-green-100 text-green-700 {% else %} bg-blue-100 text-blue-700 {% endif %}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-xl">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">
+        {{ title }}
+      </h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-8 text-center">
+        Connect with alumni from your college, expand your professional network,
+        and discover valuable opportunities.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="networking-search-card">
+          <h3 class="text-2xl font-semibold text-blue-700 mb-4">Find Alumni</h3>
+          <p class="text-gray-600 mb-4">
+            Search for alumni by industry, company, location, or graduation
+            year.
+          </p>
+          <form class="space-y-4">
+            <div>
+              <label
+                for="alumni-search"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Search Alumni:</label
+              >
+              <input
+                type="text"
+                id="alumni-search"
+                placeholder="e.g., Software Engineer, Google"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+
+        <div class="networking-events-card">
+          <h3 class="text-2xl font-semibold text-green-700 mb-4">
+            Networking Events
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Discover upcoming virtual and in-person networking events.
+          </p>
+          <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <li>Virtual Career Fair - August 15, 2025</li>
+            <li>Alumni Mixer (NYC Chapter) - September 10, 2025</li>
+            <li>Industry Spotlight: Tech - October 5, 2025</li>
+          </ul>
+          <button
+            class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+          >
+            View All Events
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8 networking-featured-alumni-card">
+        <h3 class="text-2xl font-semibold text-purple-700 mb-4">
+          Featured Alumni Profiles
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {% for alumni_user in alumni_users %}
+          <div class="alumni-profile-item">
+            <img
+              src="https://placehold.co/60x60/ADD8E6/000000?text={{ alumni_user.username[0]|upper }}{{ alumni_user.username.split(' ')[1][0]|upper if ' ' in alumni_user.username else '' }}"
+              alt="Alumni Profile"
+              class="rounded-full w-16 h-16 object-cover"
+            />
+            <div>
+              <p class="font-bold text-gray-800">{{ alumni_user.username }}</p>
+              <p class="text-sm text-gray-600">
+                Alumni ({{ alumni_user.email }})
+              </p>
+              <a href="#" class="text-blue-500 hover:underline text-sm"
+                >View Profile</a
+              >
+            </div>
+          </div>
+          {% else %}
+          <p class="text-gray-600">
+            No alumni profiles found. Register some alumni!
+          </p>
+          {% endfor %}
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+      <div class="container mx-auto">
+        <p>&copy; 2025 Alumni Career Accelerator. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

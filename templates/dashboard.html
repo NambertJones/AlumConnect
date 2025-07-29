@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alumni Career Accelerator</title>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css\dashboard_style.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🎓 AlumniConnect</div>
+    <nav>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#mentorship">Mentorship</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><button class="login-btn">Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Unlock Alumni Power 🚀</h1>
+      <p>Connect • Mentor • Refer • Grow</p>
+      <div class="cta-buttons">
+        <button class="cta alumni-btn">I'm an Alumni</button>
+        <button class="cta student-btn">I'm a Student</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2 data-aos="fade-right">Platform Features</h2>
+    <div class="feature-list">
+      <div class="feature" data-aos="zoom-in">
+        🎯 <h3>Smart Mentorship</h3><p>AI matches alumni with students for career mentoring.</p>
+      </div>
+      <div class="feature" data-aos="zoom-in">
+        💼 <h3>Referral Jobs</h3><p>Students get real job leads through alumni referrals.</p>
+      </div>
+      <div class="feature" data-aos="zoom-in">
+        📈 <h3>Success Dashboard</h3><p>Track your goals, mentors, and job application progress.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mentorship" id="mentorship">
+    <h2 data-aos="fade-left">Mentor-Mentee Cards</h2>
+    <div class="card-container">
+      <div class="card" data-aos="fade-up"><h3>👨‍🏫 Arjun, Tech Lead</h3><p>Mentoring 3 students in ML</p></div>
+      <div class="card" data-aos="fade-up" data-aos-delay="100"><h3>👩‍💼 Priya, UX Designer</h3><p>Guiding UI/UX career paths</p></div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2 data-aos="fade-right">Success Stories</h2>
+    <div class="testimonial" data-aos="flip-left">
+      <p>"This platform helped me connect with alumni and land a job at Amazon!"</p>
+      <h4>- Aishwarya, 2021 Batch</h4>
+    </div>
+  </section>
+
+  <section class="stats" id="stats">
+    <h2 data-aos="zoom-in">Our Impact</h2>
+    <div class="counter-boxes">
+      <div class="counter" data-aos="fade-up">👥 10,000+ Users</div>
+      <div class="counter" data-aos="fade-up" data-aos-delay="100">💼 1,200+ Referrals</div>
+      <div class="counter" data-aos="fade-up" data-aos-delay="200">🎓 500+ Mentors</div>
+    </div>
+  </section>
+
+  <section class="newsletter" id="newsletter">
+    <h2 data-aos="fade-right">Subscribe for Updates</h2>
+    <form data-aos="fade-up">
+      <input type="email" placeholder="Enter email" />
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 AlumniConnect. All rights reserved.</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+  <script src="script.js"></script>
+</body>
+</html>
